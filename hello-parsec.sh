@@ -13,8 +13,15 @@ PARSEC_TOOL="${PARSEC_TOOL:-$(which parsec-tool)}"
 KEY_NAME=HelloParsecDemoKey
 export RUST_LOG="${RUST_LOG:-error}"
 
-if ! ping_parsec; then exit 1; fi
+if ! ping_parsec; then
+    echo "Could not connect to a working Parsec service on this system."
+    echo "This could mean:"
+    echo "    [1] - The Parsec service has not been installed or is not running."
+    echo "    [2] - Parsec's domain socket service endpoint is not visible to this container because it has not been mounted."
+    exit 1;
+fi
 
+# Getting to here means that we have a working Parsec service, so display the banner and run the demo.
 cat ./parsec_banner.txt
 
 echo "Parsec back-end providers enabled (the topmost entry is the default):-"
