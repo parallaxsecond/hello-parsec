@@ -3,8 +3,15 @@
 
 FROM rust:1.60.0 as rustbuilder
 WORKDIR /tools
+
+# Clone and build the parsec-tool. We need a version that supports the 'encrypt'
+# command, which is currently unreleased hence checking out specific commit below.
+# TODO: replace commit hash with released tag when available.
 RUN git clone https://github.com/parallaxsecond/parsec-tool.git
-RUN cd parsec-tool && cargo build
+RUN cd parsec-tool \
+         && git checkout 7e40ae9be21e797fe29186d19c3363ced70a8157 \
+         && cargo build
+
 WORKDIR /app
 COPY rust/parsec-hello-decrypt parsec-hello-decrypt
 RUN cd parsec-hello-decrypt && cargo build
