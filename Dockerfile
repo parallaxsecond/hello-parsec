@@ -1,3 +1,6 @@
+# Copyright 2022 Contributors to the Parsec project.
+# SPDX-License-Identifier: Apache-2.0
+
 FROM rust:1.60.0 as rustbuilder
 WORKDIR /tools
 RUN git clone https://github.com/parallaxsecond/parsec-tool.git
