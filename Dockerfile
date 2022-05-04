@@ -10,11 +10,11 @@ WORKDIR /tools
 RUN git clone https://github.com/parallaxsecond/parsec-tool.git
 RUN cd parsec-tool \
          && git checkout 7e40ae9be21e797fe29186d19c3363ced70a8157 \
-         && cargo build
+         && cargo build --release
 
 WORKDIR /app
 COPY rust/parsec-hello-decrypt parsec-hello-decrypt
-RUN cd parsec-hello-decrypt && cargo build
+RUN cd parsec-hello-decrypt && cargo build --release
 
 FROM golang:1.18.1 as gobuilder
 WORKDIR /app
@@ -23,9 +23,9 @@ RUN cd parsec-hello-decrypt && go get parsec/parsec-hello-decrypt && go build .
 
 FROM ubuntu:20.04
 WORKDIR /tools
-COPY --from=rustbuilder /tools/parsec-tool/target/debug/parsec-tool .
+COPY --from=rustbuilder /tools/parsec-tool/target/release/parsec-tool .
 WORKDIR /app/rust
-COPY --from=rustbuilder /app/parsec-hello-decrypt/target/debug/parsec-hello-decrypt .
+COPY --from=rustbuilder /app/parsec-hello-decrypt/target/release/parsec-hello-decrypt .
 WORKDIR /app/go
 COPY --from=gobuilder /app/parsec-hello-decrypt/parsec-hello-decrypt .
 WORKDIR /demo
