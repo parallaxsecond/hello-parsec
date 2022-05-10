@@ -158,7 +158,7 @@ that it executes the `parsec-cli-tests.sh` script, which is included in the cont
 Running the container as follows will execute the tests:
 
 ```
-docker run -v /run/parsec:/run/parsec hello-parsec ./parsec-cli-tests.sh
+docker run --rm -v /run/parsec:/run/parsec hello-parsec ./parsec-cli-tests.sh
 ```
 
 When executed in this way, the output will be different from what is described above. The Parsec
