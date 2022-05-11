@@ -165,3 +165,6 @@ When executed in this way, the output will be different from what is described a
 logo and banner will not be displayed. Instead, the console will show all of the output from the
 command-line test script, which will include a variety of key management and cryptographic
 operations.
+
+The `parsec-cli-tests.sh` script also accepts some command-line parameters to adjust its behaviour.
+You can use the `-h` option to get additional help on these.
