@@ -148,3 +148,23 @@ Hello Parsec from the Parsec CLI Tool!
 
 Finished!
 ```
+
+# Running More Extensive Tests
+
+The `hello-parsec` container can optionally be used to execute a full suite of functional tests in
+place of the default demo. This is achieved by supplying an override to the `docker run` command so
+that it executes the `parsec-cli-tests.sh` script, which is included in the container image.
+
+Running the container as follows will execute the tests:
+
+```
+docker run --rm -v /run/parsec:/run/parsec hello-parsec ./parsec-cli-tests.sh
+```
+
+When executed in this way, the output will be different from what is described above. The Parsec
+logo and banner will not be displayed. Instead, the console will show all of the output from the
+command-line test script, which will include a variety of key management and cryptographic
+operations.
+
+The `parsec-cli-tests.sh` script also accepts some command-line parameters to adjust its behaviour.
+You can use the `-h` option to get additional help on these.

@@ -22,6 +22,10 @@ COPY go/parsec-hello-decrypt parsec-hello-decrypt
 RUN cd parsec-hello-decrypt && go get parsec/parsec-hello-decrypt && go build .
 
 FROM ubuntu:20.04
+RUN apt-get update
+# Install OpenSSL in support of the parsec-cli-tests.sh script, which can optionally be executed
+# by the client in place of the default hello-parsec.sh script.
+RUN apt-get -y install openssl
 WORKDIR /tools
 COPY --from=rustbuilder /tools/parsec-tool/target/release/parsec-tool .
 WORKDIR /app/rust
